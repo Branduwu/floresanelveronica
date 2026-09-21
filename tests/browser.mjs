@@ -1,0 +1,112 @@
+import { chromium, devices } from 'playwright'
+import AxeBuilder from '@axe-core/playwright'
+import assert from 'node:assert/strict'
+import { mkdir, writeFile } from 'node:fs/promises'
+
+const directory = 'output/playwright'
+await mkdir(directory, { recursive: true })
+const browser = await chromium.launch({ headless: true, channel: process.env.PLAYWRIGHT_CHANNEL || 'chrome' })
+const report = { date: new Date().toISOString(), scenarios: [], accessibility: [], errors: [], performance: {} }
+const base = process.env.TEST_URL || 'http://127.0.0.1:3000/'
+const check = (condition, text) => { assert.ok(condition, text); report.scenarios.push(text); console.log(`PASS ${text}`) }
+const shot = (page, name) => page.screenshot({ path: `${directory}/${name}.png`, fullPage: true, scale:'css' })
+const scene = (page, name) => page.locator(`main[data-scene="${name}"]`).waitFor()
+const audit = async (page, name) => {
+  const result = await new AxeBuilder({ page }).withTags(['wcag2a','wcag2aa','wcag21aa']).analyze()
+  report.accessibility.push({ name, violations: result.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,summary:n.failureSummary}))})) })
+  console.log(`AXE ${name}: ${result.violations.length} violations`)
+}
+const watch = page => {
+  page.on('pageerror', error=>report.errors.push(error.message))
+  page.on('console', message=>{if(message.type()==='error')report.errors.push(message.text())})
+}
+try {
+  const context = await browser.newContext({ viewport:{width:1440,height:1000}, reducedMotion:'no-preference' })
+  const page = await context.newPage(); watch(page)
+  await page.goto(base); await page.waitForTimeout(2300)
+  await shot(page,'desktop-intro'); await audit(page,'desktop-intro')
+  await page.getByRole('button',{name:'Tocar la estrella y hacer florecer la rosa'}).focus()
+  await page.keyboard.press('Enter'); await scene(page,'growing')
+  await page.waitForTimeout(2500); await shot(page,'desktop-growing')
+  const petals = await page.locator('.hero-flower .petal-fill').evaluateAll(nodes=>nodes.map(node=>Number(getComputedStyle(node).opacity)))
+  check(petals.some(value=>value>0) && petals.some(value=>value<.5),'Floración real: pétalos en distintas fases de relleno')
+  await scene(page,'bloom'); await page.waitForTimeout(500); await shot(page,'desktop-bloom')
+  check(await page.getByRole('button',{name:'Tocar la rosa y descubrir el jardín'}).evaluate(el=>el===document.activeElement),'Foco transferido a la rosa tras florecer')
+  await audit(page,'desktop-bloom')
+  await page.keyboard.press('Enter'); await scene(page,'seeding')
+  await scene(page,'garden'); await page.waitForTimeout(2500); await shot(page,'desktop-garden')
+  await page.getByRole('button',{name:'Descubrir constelación A V'}).click()
+  check(await page.getByRole('img',{name:'Constelación A, estrella, V'}).isVisible(),'Constelación secreta A V visible')
+  for(let i=1;i<=3;i++) {
+    await page.getByRole('button',{name:`Descubrir mensaje en flor ${i}`,exact:true}).click()
+    check((await page.locator('.hidden-message').innerText()).length>5,`Mensaje oculto ${i} revelado`)
+  }
+  await shot(page,'desktop-secrets'); await audit(page,'desktop-garden')
+  await page.getByRole('button',{name:'Abrir la carta para Anel'}).click()
+  await page.waitForTimeout(900); await shot(page,'desktop-letter'); await audit(page,'desktop-letter')
+  await page.keyboard.press('Tab')
+  check(await page.getByRole('dialog').evaluate(el=>el.contains(document.activeElement)),'La carta mantiene el foco dentro del diálogo')
+  await page.keyboard.press('Escape'); await scene(page,'garden')
+  check(await page.getByRole('button',{name:'Abrir la carta para Anel'}).evaluate(el=>el===document.activeElement),'Escape cierra y devuelve el foco al sobre')
+  await page.getByRole('button',{name:'Repetir',exact:true}).click(); await scene(page,'intro')
+  await page.getByRole('button',{name:'Tocar la estrella y hacer florecer la rosa'}).click()
+  await page.getByRole('button',{name:'Saltar intro'}).click(); await scene(page,'bloom')
+  await page.waitForTimeout(5600)
+  check(await page.locator('main').getAttribute('data-scene')==='bloom','Saltar durante el crecimiento cancela callbacks anteriores')
+  await page.getByRole('button',{name:'Pausar movimiento'}).click()
+  check(await page.locator('main').evaluate(el=>el.classList.contains('ambient-paused')),'Pausa ambiental aplicada')
+  await page.getByRole('button',{name:'Tocar la rosa y descubrir el jardín'}).click(); await scene(page,'garden')
+  check(true,'Pausa no bloquea el avance narrativo')
+  await context.close()
+
+  const mobileContext = await browser.newContext({...devices['iPhone 13'], viewport:{width:390,height:844}, defaultBrowserType:undefined, reducedMotion:'no-preference'})
+  const mobile = await mobileContext.newPage(); watch(mobile)
+  await mobile.goto(base); await mobile.waitForTimeout(2300); await shot(mobile,'mobile-intro')
+  await mobile.getByRole('button',{name:'Tocar la estrella y hacer florecer la rosa'}).tap(); await scene(mobile,'bloom')
+  await mobile.waitForTimeout(400); await shot(mobile,'mobile-bloom'); await audit(mobile,'mobile-bloom')
+  const flower = await mobile.locator('.hero-flower>.rose').boundingBox()
+  check(flower.x>=0 && flower.x+flower.width<=390 && flower.y>=0 && flower.y+flower.height<=844,'Rosa completa dentro del viewport móvil 390 × 844')
+  const note = await mobile.locator('.story-note').boundingBox()
+  const blossom = await mobile.locator('.hero-flower .blossom').boundingBox()
+  check(blossom.y > note.y + note.height + 8, 'Separación legible entre mensaje y pétalos en móvil')
+  await mobile.getByRole('button',{name:'Tocar la rosa y descubrir el jardín'}).tap(); await scene(mobile,'garden'); await mobile.waitForTimeout(2500)
+  await shot(mobile,'mobile-garden'); await audit(mobile,'mobile-garden')
+  await mobile.getByRole('button',{name:'Descubrir constelación A V'}).tap()
+  await mobile.getByRole('button',{name:'Descubrir mensaje en flor 1',exact:true}).tap()
+  check((await mobile.locator('.hidden-message').innerText()).length>5,'Interacciones táctiles: estrella y flor')
+  await shot(mobile,'mobile-secrets')
+  await mobile.getByRole('button',{name:'Abrir la carta para Anel'}).tap(); await mobile.waitForTimeout(1000)
+  await shot(mobile,'mobile-letter'); await audit(mobile,'mobile-letter')
+  await mobile.getByRole('button',{name:'Cerrar carta y volver al jardín'}).tap(); await scene(mobile,'garden')
+  await mobile.emulateMedia({reducedMotion:'reduce'})
+  await mobile.getByRole('button',{name:'Repetir',exact:true}).tap()
+  await mobile.getByRole('button',{name:'Tocar la estrella y hacer florecer la rosa'}).tap(); await scene(mobile,'bloom')
+  check(await mobile.getByRole('button',{name:'Movimiento reducido del sistema activado'}).isDisabled(),'Respeto a prefers-reduced-motion y control explicado')
+  await shot(mobile,'mobile-reduced-motion')
+  await mobile.getByRole('button',{name:'Tocar la rosa y descubrir el jardín'}).tap(); await scene(mobile,'garden')
+  await mobile.getByRole('button',{name:'Abrir la carta para Anel'}).tap()
+  check(await mobile.getByRole('dialog').isVisible(),'La carta sigue accesible con movimiento reducido')
+  await mobile.getByRole('button',{name:'Cerrar carta y volver al jardín'}).tap(); await scene(mobile,'garden')
+  for(const viewport of [{width:320,height:568},{width:375,height:667},{width:844,height:390},{width:768,height:1024}]) {
+    await mobile.setViewportSize(viewport)
+    await shot(mobile,`responsive-${viewport.width}x${viewport.height}`)
+    check(await mobile.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`Sin desbordamiento horizontal ${viewport.width} × ${viewport.height}`)
+  }
+  await mobile.setViewportSize({width:390,height:844}); await mobile.emulateMedia({reducedMotion:'no-preference'})
+  const cdp=await mobileContext.newCDPSession(mobile)
+  await cdp.send('Emulation.setCPUThrottlingRate',{rate:4})
+  report.performance=await mobile.evaluate(()=>new Promise(resolve=>{
+    const intervals=[];let previous=0
+    const sample=now=>{if(previous)intervals.push(now-previous);previous=now;if(intervals.length<120)requestAnimationFrame(sample);else {intervals.sort((a,b)=>a-b);resolve({samples:intervals.length,medianMs:intervals[60],p95Ms:intervals[114],over33ms:intervals.filter(x=>x>33.4).length,condition:'Chromium headless, iPhone 13 emulation, CPU 4x slowdown; not a physical device'})}}
+    requestAnimationFrame(sample)
+  }))
+  await cdp.send('Emulation.setCPUThrottlingRate',{rate:1})
+  console.log('PERFORMANCE',JSON.stringify(report.performance))
+  check(report.errors.length===0,'Sin errores de consola ni excepciones en ambos contextos')
+  const violations=report.accessibility.reduce((sum,a)=>sum+a.violations.length,0)
+  check(violations===0,'Sin infracciones axe WCAG A/AA en escenas auditadas')
+  await mobileContext.close()
+} finally {
+  await writeFile(`${directory}/report.json`,JSON.stringify(report,null,2))
+  await browser.close()
+}
