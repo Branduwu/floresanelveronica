@@ -20,11 +20,11 @@ export function Letter({ onClose, still }: { onClose: () => void; still: boolean
     <article className="letter-paper">
       <button className="letter-close" onClick={close} aria-label="Cerrar carta y volver al jardín">×</button>
       <Star className="letter-star"/>
-      <span className="letter-eyebrow">De este lado de la distancia</span>
+      <span className="letter-eyebrow">{content.letterDetails.eyebrow}</span>
       <h2 id="letter-title">{content.recipient}:</h2>
       {content.letter.map((p,i)=><p key={p} className={i === content.letter.length - 1 ? 'letter-signoff' : ''}>{p}</p>)}
-      <div className="letter-bottom"><span>Con mucho cariño</span><span className="letter-monogram">A · V</span></div>
-      <button className="return-garden" onClick={close}>Volver a las flores <span aria-hidden="true">↗</span></button>
+      <div className="letter-bottom"><span>{content.letterDetails.signoff}</span><span className="letter-monogram">{content.letterDetails.monogram}</span></div>
+      <button className="return-garden" onClick={close}>{content.letterDetails.return} <span aria-hidden="true">↗</span></button>
     </article>
   </dialog>
 }

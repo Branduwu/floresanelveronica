@@ -1,5 +1,11 @@
 # Una flor hasta donde estés — sistema de movimiento
 
+## Ampliación v2
+
+Se conservan las secuencias originales de rosa, llegada de estrella y jardín. Nueva interacción: la estrella del jardín aumenta de brillo; puntos cercanos convergen en A ✦ V (0.8 s), un trazo enlaza con la escritura del nombre (0.4 s), sus contornos se dibujan y adquieren relleno en orden (3.5–4.5 s), dos motas recorren las últimas letras (.7 s). Nombre final persistente hasta cerrar o descubrir una frase. Sin bucle.
+
+El nombre usa una región visual independiente: una línea cuando el contenedor tiene espacio y dos líneas realmente recompuestas en móvil. Cambiar el ancho cancela la timeline anterior y presenta la nueva geometría completa si la secuencia ya empezó; no hay doble escritura. Reducir/pausar movimiento completa el dibujo; pestaña oculta o carta abierta suspenden la timeline. useGSAP revierte al desmontar. Abrir una frase cierra la constelación; abrir la carta limpia la frase. El polen se recorta fuera de regiones de lectura y corrige sus coordenadas al desplazar la página.
+
 Documento previo a la implementación. Materiales: luz ligera, tallo flexible, pétalos de seda, carta de papel. La estrella y la flor ocupan el mismo anclaje: no hay cambio de página.
 
 Curva de escena: cubic-bezier(.22,.61,.36,1). Crecimiento: cubic-bezier(.4,0,.2,1). Ambiente: seno suave. Respuesta táctil: 180 ms. Revelación: 800 ms. Cambio de escena: 1400 ms.

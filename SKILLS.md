@@ -1,5 +1,17 @@
 # Preparación profesional
 
+## Segunda iteración — rama local v2
+
+Las cinco skills de la primera versión se reutilizan en sus rutas existentes; no se reinstalaron. Se han leído sus SKILL.md durante esta conversación. Nueva consulta UX real: `responsive overlap spacing` y `typography line height readability`: altura determinada por el contenido, regiones de lectura, interlineado 1.5–1.75 y separación entre controles.
+
+Instaladas desde [greensock/gsap-skills](https://github.com/greensock/gsap-skills), con el instalador oficial de Codex previamente inspeccionado: `gsap-core`, `gsap-timeline`, `gsap-plugins`, `gsap-react`, `gsap-performance`. Rutas: `C:/Users/jivas/.codex/skills/<nombre>/SKILL.md`. Se leyeron los cinco documentos. Se aplican a una secuencia acotada de SVG, etiquetas de timeline, DrawSVG/MotionPath registrados explícitamente, useGSAP con scope y revertOnUpdate, y suspensión/limpieza. La rosa existente conserva CSS/SVG.
+
+Activación comprobada: tras instalar, el catálogo de skills de esta sesión incorporó los cinco nombres y rutas de GSAP. No se reinició ni se perdió el contexto. Se consultó también `openai-docs` para comprobar la documentación de skills; no se asume una recarga que no haya ocurrido.
+
+Diseño v2: conservar paleta, Cormorant/Manrope, rosa y cartografía; convertir el marco en flujo Grid/Flex, reservar espacios separados a lectura, visual, carta, mensaje y flores. La constelación sustituye temporalmente a la rosa en su región, sin tapar textos. El sobre dispone de su propia fila. Las capturas originales se conservan; la línea base nueva está en `output/playwright/v2/before/`.
+
+## Historial de preparación de v1
+
 Fuentes verificadas el 21-09-2026. Repositorio inicialmente vacío. Node 24 y Python 3.12 disponibles. Instalador oficial de Codex y su helper inspeccionados antes de descargar; no se ejecutaron instaladores de terceros. Las cinco skills se instalaron una sola vez con permiso mediante `skill-installer`.
 
 | Skill y fuente | Ruta local | Aplicación |

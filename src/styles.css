@@ -76,6 +76,8 @@ button {
 }
 
 .skip-link {
+  opacity:0;
+  pointer-events:none;
   position:fixed;
   top:8px;
   left:16px;
@@ -87,6 +89,8 @@ button {
 }
 
 .skip-link:focus {
+  opacity:1;
+  pointer-events:auto;
   transform:none;
 }
 

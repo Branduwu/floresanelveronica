@@ -24,14 +24,16 @@ Publicar el contenido de `dist/` en cualquier hosting estático con HTTPS. `base
 
 ## Personalizar
 
-Editar `src/content.ts`: nombre, dedicatoria, frases ocultas y carta. La identidad y los breakpoints están en `src/styles.css`; la coreografía se documenta en `MOTION_DESIGN.md`.
+Editar `src/content.ts`: nombre, dedicatoria, frases ocultas y carta. La identidad está en `src/styles.css`; la distribución adaptable de v2 en `src/layout.css`. La coreografía se documenta en `MOTION_DESIGN.md`.
+
+El nombre dibujado utiliza contornos de la fuente local Cormorant Garamond. Si cambia `recipient`, actualizar también su etiqueta en `content.constellation.label` y regenerar `src/data/nameGlyphs.ts` con `python scripts/generate-name.py` (requiere Python y `fonttools[woff]`). Este paso es solo de mantenimiento; el navegador no convierte fuentes en tiempo de ejecución.
 
 ## Interacciones
 
 1. Tocar la estrella o activarla con Enter/Espacio.
 2. Ver nacer la rosa o utilizar «Saltar intro».
 3. Tocar los pétalos para sembrar el jardín.
-4. Explorar las flores para descubrir tres frases y la estrella para revelar A ✦ V.
+4. Explorar las flores para descubrir tres frases y la estrella para dibujar A ✦ V → Anel Verónica.
 5. Abrir la carta desde el sobre; volver con su control de cierre o Escape.
 
 «Pausar» detiene el ambiente y permite avanzar sin las secuencias largas. Se respeta la preferencia del sistema de movimiento reducido. «Repetir» limpia los descubrimientos y vuelve al principio. No hay audio.
@@ -49,14 +51,19 @@ src/
     Sky.tsx               Canvas, profundidad y polen; un único RAF
     Observatory.tsx       Cartografía astronómica
     Letter.tsx            Papel, diálogo nativo, cierre y foco
+    NameConstellation.tsx Escritura SVG con GSAP, cargada al descubrir la estrella
     Icons.tsx             Estrella y sobre vectoriales
   styles.css              Sistema visual, coreografía y responsive
+  layout.css              Regiones y composición adaptable de v2
+  data/nameGlyphs.ts       Contornos generados de la tipografía local
 tests/
   scene.test.ts           Transiciones válidas, repetición y callbacks tardíos
   browser.mjs             Recorrido real, tacto, foco, capturas y axe
+  responsive.mjs          Matriz de tamaños, estados y límites reales
+  motion.mjs              Escenas transitorias, interrupciones y cambio de geometría
 ```
 
-SVG/CSS construyen realmente la flor: dibujo de trazos, rellenos escalonados, despliegue de hojas y capas con sombra. El pétalo que asciende interpola su geometría hacia una estrella. Canvas mantiene partículas fuera de React; su densidad y resolución se limitan en móvil. Sin WebGL ni bibliotecas pesadas de motion.
+SVG/CSS construyen realmente la flor: dibujo de trazos, rellenos escalonados, despliegue de hojas y capas con sombra. El pétalo que asciende interpola su geometría hacia una estrella. Canvas mantiene partículas fuera de React; su densidad y resolución se limitan en móvil. GSAP, DrawSVG y MotionPath se cargan por separado al abrir la constelación; no forman parte del JavaScript inicial. Sin WebGL.
 
 ## Pruebas
 
@@ -64,6 +71,8 @@ SVG/CSS construyen realmente la flor: dibujo de trazos, rellenos escalonados, de
 npm test
 # Con el servidor de desarrollo abierto en el puerto 3000:
 npm run test:browser
+npm run test:responsive
+npm run test:motion
 ```
 
 La prueba de navegador utiliza Google Chrome instalado. Para Edge en PowerShell:
@@ -73,10 +82,10 @@ $env:PLAYWRIGHT_CHANNEL = 'msedge'
 npm run test:browser
 ```
 
-Puede indicarse otra URL mediante `TEST_URL`. Evidencias y resultados se guardan en `output/playwright/`. Consultar `VERIFICATION.md` para las revisiones visuales y las limitaciones de la medición.
+Puede indicarse otra URL mediante `TEST_URL`. Las nuevas evidencias y resultados se guardan en `output/playwright/v2/`, conservando las capturas históricas de `output/playwright/`. Consultar `VERIFICATION.md` para las revisiones visuales y las limitaciones de la medición.
 
 En pantallas muy bajas u horizontales se permite desplazamiento vertical dentro del mismo escenario para preservar la flor y el texto. No se fuerza una composición comprimida ni se desactiva el zoom.
 
 ## Preparación
 
-`SKILLS.md` registra las cinco habilidades instaladas, fuentes comprobadas y su aplicación real. `MOTION_DESIGN.md` se escribió antes de los componentes.
+`SKILLS.md` registra las habilidades utilizadas, las cinco nuevas skills oficiales de GSAP, sus fuentes y la activación observada. `MOTION_DESIGN.md` conserva la dirección original y añade la coreografía de v2.

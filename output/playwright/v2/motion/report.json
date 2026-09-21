@@ -1,0 +1,220 @@
+{
+  "date": "2026-09-21T17:02:09.308Z",
+  "views": [
+    {
+      "width": 320,
+      "height": 568,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.0006344364532365981
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 360,
+      "height": 640,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.0008186237231455917
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.0004250606774043005
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.0013675623192618814
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.0013799084069104947
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.00015560972636696733
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.0010066175843793117
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.001220703125
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "phase": "growing",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "phase": "seeding",
+      "overflow": false,
+      "collision": false
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "phase": "writing",
+      "overflow": false,
+      "collision": false,
+      "penDistance": 0.0008161669384958699
+    }
+  ],
+  "checks": [
+    "320 × 568: todas las letras completas",
+    "360 × 640: todas las letras completas",
+    "375 × 667: todas las letras completas",
+    "390 × 844: todas las letras completas",
+    "Cambio de orientación durante escritura recompone y termina sin reiniciar",
+    "Pausa durante escritura muestra el nombre completo",
+    "Repetir durante escritura limpia la secuencia y sus callbacks",
+    "Movimiento reducido revela el nombre sin secuencia compleja",
+    "414 × 896: todas las letras completas",
+    "768 × 1024: todas las letras completas",
+    "1024 × 768: todas las letras completas",
+    "1440 × 900: todas las letras completas",
+    "844 × 390: todas las letras completas",
+    "Sin excepciones durante transiciones e interrupciones"
+  ],
+  "errors": []
+}
