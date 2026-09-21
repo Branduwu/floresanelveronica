@@ -2,7 +2,7 @@ import { chromium } from 'playwright'
 import { mkdir, writeFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
 
-const directory='output/playwright/v2/motion'
+const directory=`${process.env.EVIDENCE_DIR || 'output/playwright/v2'}/motion`
 await mkdir(directory,{recursive:true})
 const browser=await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL||'chrome',headless:true})
 const report={date:new Date().toISOString(),views:[],checks:[],errors:[]}
@@ -50,7 +50,7 @@ try {
       await page.locator('.name-constellation[data-phase="writing"]').waitFor()
       await page.setViewportSize({width:1440,height:900})
       await page.locator('.name-constellation[data-phase="complete"]').waitFor()
-      check(await page.locator('.name-constellation>svg').getAttribute('viewBox')==='0 0 760 270','Cambio de orientación durante escritura recompone y termina sin reiniciar')
+      check(await page.locator('.name-word').evaluateAll(words=>words[0].getCTM().f===words[1].getCTM().f),'Cambio de orientación durante escritura recompone y termina sin reiniciar')
       await page.locator('.secret-star').click();await page.locator('.secret-star').click()
       await page.locator('.name-constellation[data-phase="writing"]').waitFor()
       await page.getByRole('button',{name:'Pausar movimiento'}).click()

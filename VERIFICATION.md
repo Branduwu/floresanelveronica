@@ -1,5 +1,18 @@
 # Verificación y revisión visual
 
+## Variante Karen Estephania — jardín mixto — 21 de septiembre de 2026
+
+Nueva rama local `karen-estephania`, creada desde `v2` (`90db5e6`) conservando los ajustes del jardín que estaban en curso. La rama `v2` mantiene la versión anterior de Anel. No se modificaron remotos.
+
+- Nombre actualizado en dedicatoria, carta, cierre, título del navegador, descripción y etiquetas accesibles. Iniciales SVG **K ✦ E** y monograma **K · E**. Se regeneró `src/data/nameGlyphs.ts` desde Cormorant Garamond: la estrella dibuja **Karen Estephania**. El viewBox se adapta al ancho de las palabras para que «Estephania» no se recorte.
+- `src/components/GardenFlower.tsx` añade tulipanes de pétalos superpuestos y hojas largas, y girasoles con dos coronas de pétalos y centro de semillas. SVG local, sin imágenes externas ni dependencias nuevas. La rosa del acto inicial se conserva.
+- `src/layout.css` recupera un jardín amplio, irregular, con flores grandes delante y pequeñas más tenues detrás, siguiendo la captura del usuario. Su región sigue separada de las frases y del sobre. En móvil se conserva acceso a las tres sorpresas.
+- En el primer boceto, el botón de una flor delantera interceptaba el de la flor del fondo. Se elevó y separó esta última. La matriz final comprueba las tres pulsaciones sin forzarlas. El intento preliminar bloqueado por límite de uso se conserva identificado como incompleto en `output/playwright/v2-mixed-garden/`; las nuevas ejecuciones sí pudieron terminar.
+
+**Verificación ejecutada para esta rama:** `npm run build` correcto (TypeScript/Vite, 53 módulos); `npm test` 4/4; `test:browser` 28 comprobaciones y 9 auditorías axe sin infracciones, 0 errores de consola; `test:responsive` 90 estados/capturas en los nueve tamaños anteriores, sin overflow horizontal ni colisiones de lectura detectadas. Nombre parcial/final, una/dos líneas, teclado, tacto, carta, repetición y movimiento reducido comprobados. Se revisaron las galerías del jardín y el nombre, y capturas individuales de 320, 390 y 1440 px. `git diff --check` correcto. La suite de movimiento completa no se reejecutó para esta variante; las cifras de esa suite en v2 siguen siendo históricas.
+
+Nueva evidencia, sin sobrescribir v2: [galería](output/playwright/karen-estephania/index.html), [responsive](output/playwright/karen-estephania/responsive/report.json), [funcional y axe](output/playwright/karen-estephania/functional/report.json). Continúa pendiente la validación en teléfono físico y Safari/iOS. Se reutilizaron frontend-design, ui-ux-pro-max, React best practices y Playwright para este ajuste.
+
 ## Segunda iteración — v2 — 21 de septiembre de 2026
 
 Trabajo local sobre `6d0ced7`, con estado inicial limpio y rama nueva `v2`. Versión del paquete: `2.0.0`. Se preservan los tres actos, la ilustración de la rosa, la máquina de estados y las evidencias de v1. No se publicó ni se modificó ningún remoto en esta iteración.

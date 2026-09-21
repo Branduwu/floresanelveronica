@@ -3,7 +3,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import assert from 'node:assert/strict'
 
 const baseline = process.env.BASELINE === '1'
-const directory = `output/playwright/v2/${baseline ? 'before' : 'responsive'}`
+const directory = `${process.env.EVIDENCE_DIR || 'output/playwright/v2'}/${baseline ? 'before' : 'responsive'}`
 await mkdir(directory, {recursive:true})
 const browser = await chromium.launch({channel:process.env.PLAYWRIGHT_CHANNEL || 'chrome',headless:true})
 const report = {baseline, date:new Date().toISOString(), views:[], errors:[]}

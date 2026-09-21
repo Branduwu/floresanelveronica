@@ -4,6 +4,7 @@ import { sceneReducer } from './scene'
 import { useMotion } from './hooks/useMotion'
 import { Sky, type Burst } from './components/Sky'
 import { Rose } from './components/Rose'
+import { GardenFlower, type GardenSpecies } from './components/GardenFlower'
 import { Observatory } from './components/Observatory'
 import { Envelope, Star } from './components/Icons'
 import { Letter } from './components/Letter'
@@ -11,12 +12,12 @@ import { Letter } from './components/Letter'
 const NameConstellation = lazy(() => import('./components/NameConstellation').then(module => ({ default: module.NameConstellation })))
 
 const gardenFlowers = [
-  { x: 8, y: 9, size: 260, tilt: -17, variant: 1, depth: 'near' },
-  { x: 25, y: 21, size: 175, tilt: 13, variant: 2, depth: 'far' },
-  { x: 43, y: 4, size: 300, tilt: -8, variant: 3, depth: 'near' },
-  { x: 66, y: 21, size: 185, tilt: 16, variant: 4, depth: 'far' },
-  { x: 84, y: 6, size: 310, tilt: 12, variant: 1, depth: 'near' },
-  { x: 95, y: 27, size: 150, tilt: -18, variant: 2, depth: 'far' },
+  { x: 7, y: 4, size: 330, tilt: -17, variant: 1, depth: 'near', species: 'sunflower' },
+  { x: 25, y: 29, size: 210, tilt: 13, variant: 2, depth: 'far', species: 'tulip' },
+  { x: 43, y: 0, size: 375, tilt: -8, variant: 3, depth: 'near', species: 'tulip' },
+  { x: 66, y: 32, size: 195, tilt: 16, variant: 4, depth: 'far', species: 'sunflower' },
+  { x: 84, y: 2, size: 360, tilt: 12, variant: 1, depth: 'near', species: 'sunflower' },
+  { x: 95, y: 36, size: 190, tilt: -18, variant: 2, depth: 'far', species: 'tulip' },
 ]
 
 export function App() {
@@ -109,11 +110,11 @@ export function App() {
       </div>
 
       {garden && <div className="garden">
-        <button ref={envelopeRef} className="letter-invitation" onClick={()=>{setMessage('');dispatch('LETTER')}} aria-label="Abrir la carta para Anel"><span className="envelope-birth"><Star className="envelope-star"/><Envelope/></span><span>{content.invitation[0]}<span>{content.invitation[1]}</span></span></button>
+        <button ref={envelopeRef} className="letter-invitation" onClick={()=>{setMessage('');dispatch('LETTER')}} aria-label={`Abrir la carta para ${content.recipient}`}><span className="envelope-birth"><Star className="envelope-star"/><Envelope/></span><span>{content.invitation[0]}<span>{content.invitation[1]}</span></span></button>
         <div className={`hidden-message ${messageClosing ? 'message-closing' : ''}`} role="status" aria-live="polite">{message ? <p key={message}>{message}</p> : <span className="garden-hint">{content.gardenHint}</span>}</div>
         <div className="garden-meadow">
         <svg className="garden-constellations" viewBox="0 0 1200 500" preserveAspectRatio="none" aria-hidden="true"><path d="M30 350L170 170L280 270L460 130L610 310L790 140L990 250L1130 150" pathLength="1"/>{[[30,350],[170,170],[280,270],[460,130],[610,310],[790,140],[990,250],[1130,150]].map(([x,y])=><circle key={x} cx={x} cy={y} r="3"/>)}</svg>
-        {gardenFlowers.map((flower,i)=><button key={i} className={`garden-flower garden-flower-${i} ${flower.depth}`} style={{'--x': `${flower.x}%`, '--y': `${flower.y}%`, '--size': `${flower.size}px`, '--tilt': `${flower.tilt}deg`, '--delay': `${i * .12}s`} as CSSProperties} onClick={e=>discover(i,e)} aria-label={`Descubrir mensaje en flor ${i + 1}`}><Rose variant={flower.variant}/><span className="flower-firefly"/><span className="sr-only">Descubrir una frase</span></button>)}
+        {gardenFlowers.map((flower,i)=><button key={i} className={`garden-flower garden-flower-${i} ${flower.depth}`} style={{'--x': `${flower.x}%`, '--y': `${flower.y}%`, '--size': `${flower.size}px`, '--tilt': `${flower.tilt}deg`, '--delay': `${i * .12}s`} as CSSProperties} onClick={e=>discover(i,e)} aria-label={`Descubrir mensaje en flor ${i + 1}: ${flower.species === 'tulip' ? 'tulipán' : 'girasol'}`}><GardenFlower species={flower.species as GardenSpecies} variant={flower.variant}/><span className="flower-firefly"/><span className="sr-only">Descubrir una frase</span></button>)}
         </div>
       </div>}
     </div>

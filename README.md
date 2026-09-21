@@ -1,6 +1,6 @@
 # Una flor hasta donde estés
 
-Un observatorio botánico interactivo para Anel Verónica. Tres actos en un mismo cielo: una estrella llega, dibuja una rosa amarilla y da vida a un jardín con mensajes y una carta.
+Un observatorio botánico interactivo para Karen Estephania, en la rama `karen-estephania`. Tres actos en un mismo cielo: una estrella llega, dibuja una rosa amarilla y da vida a un jardín de tulipanes y girasoles con mensajes y una carta. La versión de Anel se conserva en `v2`.
 
 ## Ejecutar
 
@@ -26,14 +26,14 @@ Publicar el contenido de `dist/` en cualquier hosting estático con HTTPS. `base
 
 Editar `src/content.ts`: nombre, dedicatoria, frases ocultas y carta. La identidad está en `src/styles.css`; la distribución adaptable de v2 en `src/layout.css`. La coreografía se documenta en `MOTION_DESIGN.md`.
 
-El nombre dibujado utiliza contornos de la fuente local Cormorant Garamond. Si cambia `recipient`, actualizar también su etiqueta en `content.constellation.label` y regenerar `src/data/nameGlyphs.ts` con `python scripts/generate-name.py` (requiere Python y `fonttools[woff]`). Este paso es solo de mantenimiento; el navegador no convierte fuentes en tiempo de ejecución.
+El nombre dibujado utiliza contornos de la fuente local Cormorant Garamond. Si cambia `recipient`, actualizar también su etiqueta en `content.constellation.label`, el monograma y los trazos de iniciales en `NameConstellation.tsx`, y regenerar `src/data/nameGlyphs.ts` con `python scripts/generate-name.py` (requiere Python y `fonttools[woff]`). Este paso es solo de mantenimiento; el navegador no convierte fuentes en tiempo de ejecución.
 
 ## Interacciones
 
 1. Tocar la estrella o activarla con Enter/Espacio.
 2. Ver nacer la rosa o utilizar «Saltar intro».
 3. Tocar los pétalos para sembrar el jardín.
-4. Explorar las flores para descubrir tres frases y la estrella para dibujar A ✦ V → Anel Verónica.
+4. Explorar los tulipanes y girasoles para descubrir tres frases y la estrella para dibujar K ✦ E → Karen Estephania.
 5. Abrir la carta desde el sobre; volver con su control de cierre o Escape.
 
 «Pausar» detiene el ambiente y permite avanzar sin las secuencias largas. Se respeta la preferencia del sistema de movimiento reducido. «Repetir» limpia los descubrimientos y vuelve al principio. No hay audio.
@@ -48,6 +48,7 @@ src/
   hooks/useMotion.ts      Preferencias y visibilidad de pestaña
   components/
     Rose.tsx              Ilustración SVG original, 20 pétalos y variantes
+    GardenFlower.tsx      Tulipanes y girasoles SVG del jardín, con variantes y semillas
     Sky.tsx               Canvas, profundidad y polen; un único RAF
     Observatory.tsx       Cartografía astronómica
     Letter.tsx            Papel, diálogo nativo, cierre y foco
@@ -82,7 +83,7 @@ $env:PLAYWRIGHT_CHANNEL = 'msedge'
 npm run test:browser
 ```
 
-Puede indicarse otra URL mediante `TEST_URL`. Las nuevas evidencias y resultados se guardan en `output/playwright/v2/`, conservando las capturas históricas de `output/playwright/`. Consultar `VERIFICATION.md` para las revisiones visuales y las limitaciones de la medición.
+Puede indicarse otra URL mediante `TEST_URL`. Para conservar evidencia separada de esta rama, usar `$env:EVIDENCE_DIR = 'output/playwright/karen-estephania'` antes de las pruebas en PowerShell. Si no se indica, la ruta predeterminada sigue siendo `output/playwright/v2/`. Consultar `VERIFICATION.md` para las revisiones visuales y las limitaciones de la medición.
 
 En pantallas muy bajas u horizontales se permite desplazamiento vertical dentro del mismo escenario para preservar la flor y el texto. No se fuerza una composición comprimida ni se desactiva el zoom.
 

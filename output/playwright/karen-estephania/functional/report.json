@@ -1,0 +1,79 @@
+{
+  "date": "2026-09-21T22:08:33.388Z",
+  "scenarios": [
+    "Enlace de salto visible y accesible con Tab",
+    "El enlace de salto lleva el foco a la experiencia",
+    "Floración real: pétalos en distintas fases de relleno",
+    "Foco transferido a la rosa tras florecer",
+    "Nombre dibujado progresivamente: letras terminadas y pendientes",
+    "Nombre completo accesible mediante teclado",
+    "Nombre de escritorio compuesto en una línea",
+    "Mensaje oculto 1 revelado",
+    "Mensaje oculto 2 revelado",
+    "Mensaje oculto 3 revelado",
+    "La carta mantiene el foco dentro del diálogo",
+    "Escape cierra y devuelve el foco al sobre",
+    "Saltar durante el crecimiento cancela callbacks anteriores",
+    "Pausa ambiental aplicada",
+    "Pausa no bloquea el avance narrativo",
+    "Rosa móvil completa en su región; desplazamiento natural permitido",
+    "Separación legible entre mensaje y pétalos en móvil",
+    "Nombre móvil recompuesto en dos líneas",
+    "Interacciones táctiles: estrella y flor",
+    "Las frases y la constelación no compiten simultáneamente",
+    "Respeto a prefers-reduced-motion y control explicado",
+    "La carta sigue accesible con movimiento reducido",
+    "Sin desbordamiento horizontal 320 × 568",
+    "Sin desbordamiento horizontal 375 × 667",
+    "Sin desbordamiento horizontal 844 × 390",
+    "Sin desbordamiento horizontal 768 × 1024",
+    "Sin errores de consola ni excepciones en ambos contextos",
+    "Sin infracciones axe WCAG A/AA en escenas auditadas"
+  ],
+  "accessibility": [
+    {
+      "name": "desktop-intro",
+      "violations": []
+    },
+    {
+      "name": "desktop-bloom",
+      "violations": []
+    },
+    {
+      "name": "desktop-name",
+      "violations": []
+    },
+    {
+      "name": "desktop-garden",
+      "violations": []
+    },
+    {
+      "name": "desktop-letter",
+      "violations": []
+    },
+    {
+      "name": "mobile-bloom",
+      "violations": []
+    },
+    {
+      "name": "mobile-garden",
+      "violations": []
+    },
+    {
+      "name": "mobile-name",
+      "violations": []
+    },
+    {
+      "name": "mobile-letter",
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "performance": {
+    "samples": 120,
+    "medianMs": 13.299999999999272,
+    "p95Ms": 13.400000000001455,
+    "over33ms": 0,
+    "condition": "Chromium headless, iPhone 13 emulation, CPU 4x slowdown; not a physical device"
+  }
+}

@@ -13,9 +13,9 @@ export function NameConstellation({ still, paused }: { still: boolean; paused: b
   const timeline = useRef<gsap.core.Timeline | null>(null)
   const started = useRef(false)
   const [narrow, setNarrow] = useState<boolean | null>(null)
-  const width = narrow ? 390 : 760
-  const height = narrow ? 350 : 270
   const totalWidth = nameGeometry.words.reduce((sum, word) => sum + word.width, 0) + 24
+  const width = narrow ? Math.max(390, ...nameGeometry.words.map(word => word.width + 48)) : Math.max(760, totalWidth + 80)
+  const height = narrow ? 350 : 270
 
   useEffect(() => {
     const element = root.current
@@ -90,11 +90,11 @@ export function NameConstellation({ still, paused }: { still: boolean; paused: b
     <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`Constelación ${content.recipient}`}>
       <defs><linearGradient id="name-gold" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#fff1bf"/><stop offset="1" stopColor="#e4b65e"/></linearGradient></defs>
       <g className="initials" transform={`translate(${width / 2 - 70} 8) scale(.54)`} aria-hidden="true">
-        <path className="initials-line" d="M20 90L55 15L90 90M36 58H74M170 15L205 90L240 15"/>
-        {[[20,90],[55,15],[90,90],[36,58],[74,58],[170,15],[205,90],[240,15]].map(([x,y],i)=><circle key={i} className="gathering-star" cx={x} cy={y} r="3"/>)}
+        <path className="initials-line" d="M20 15V90M80 15L20 55L85 90M240 15H170V90H240M170 52H225"/>
+        {[[20,15],[20,90],[20,55],[80,15],[85,90],[170,15],[170,90],[240,90],[240,15],[225,52]].map(([x,y],i)=><circle key={i} className="gathering-star" cx={x} cy={y} r="3"/>)}
         <path fill="#ffdf92" stroke="none" d="M130 36L134 50L148 54L134 58L130 72L126 58L112 54L126 50Z"/>
       </g>
-      <path className="name-connector" d={narrow ? 'M194 63C184 95 107 61 92 95' : 'M378 63C353 102 149 62 116 105'} />
+      <path className="name-connector" d={`M${width / 2} 63C${width / 2 - 20} 100 110 62 90 105`} />
       {nameGeometry.words.map((word, wi) => {
         const x = narrow ? (width - word.width) / 2 : wordX
         const y = narrow ? 64 + wi * 112 : 65

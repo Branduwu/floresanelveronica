@@ -158,23 +158,23 @@
 .garden-meadow {
   position: relative;
   grid-column: 1 / -1;
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  align-items: end;
-  min-height: 200px;
-  padding: 8px 18px;
+  width: calc(100vw - 40px);
+  justify-self: center;
+  height: clamp(300px, 26vw, 420px);
+  margin-top: 12px;
 }
 .universe .garden-flower {
-  position: relative;
+  position: absolute;
   inset: auto;
-  justify-self: center;
-  width: min(100%, 135px);
-  height: auto;
+  left: var(--x);
+  bottom: var(--y);
+  width: auto;
+  height: min(var(--size), 24vw);
   aspect-ratio: 390 / 585;
-  transform: rotate(calc(var(--tilt) * .45));
+  transform: translateX(-50%) rotate(var(--tilt));
   transform-origin: 50% 90%;
 }
-.universe .garden-flower.far { width: min(85%, 100px); margin-bottom: 25px; opacity: .65; }
+.universe .garden-flower.far { height: min(var(--size), 15vw); margin: 0; opacity: .55; }
 .universe .garden-constellations { inset: 0; height: 100%; }
 
 /* The star exchanges the illustration for lettering in the same reserved region. */
@@ -265,10 +265,13 @@
   .universe .envelope-birth>svg:last-child { width: 42px; }
   .universe .hidden-message { grid-row: 2; grid-column: 1; min-height: 88px; text-align: center; justify-items: center; }
   .universe .hidden-message p { font-size: 23px; max-width: 25ch; padding: 12px 0; }
-  .universe .garden-meadow { grid-template-columns: repeat(3, minmax(0, 1fr)); min-height: 180px; padding: 8px 0; gap: 8px; }
-  .universe .garden-flower { width: 100%; display: block; }
+  .universe .garden-meadow { width: calc(100vw - 24px); height: 330px; margin-top: 16px; }
+  .universe .garden-flower { height: clamp(215px, 62vw, 285px); display: block; }
+  .universe .garden-flower-0 { left: 25%; bottom: 3%; }
+  .universe .garden-flower-1 { left: 54%; bottom: 55%; }
+  .universe .garden-flower-2 { left: 81%; bottom: 0; }
   .universe .garden-flower-3, .universe .garden-flower-4, .universe .garden-flower-5 { display: none; }
-  .universe .garden-flower.far { width: 90%; margin-bottom: 22px; }
+  .universe .garden-flower.far { height: clamp(135px, 37vw, 165px); }
   .universe.scene-garden .hero-flower, .universe.scene-letter .hero-flower { width: min(225px, 80%); }
   .universe .name-caption { font-size: 18px; margin-top: 12px; padding-inline: 8px; }
   .universe .scene-footer { margin-top: 0; justify-content: center; }
