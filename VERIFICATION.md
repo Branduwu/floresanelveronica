@@ -1,5 +1,13 @@
 # Verificación y revisión visual
 
+## Variante Esmeralda Flores — 21 de septiembre de 2026
+
+Rama local `esmeralda-flores`, creada desde `karen-estephania` (`f81fb83`), con estado inicial limpio. Se conserva el jardín de tulipanes y girasoles. Se actualizaron nombre, cierre de la carta, título y descripción de página, etiquetas accesibles, monograma **E · F** e iniciales SVG **E ✦ F**. Los contornos del nombre completo se regeneraron desde la fuente local. Las ramas y evidencias anteriores se conservan; no se modificaron remotos.
+
+Verificación propia: build TypeScript/Vite correcto; 4 pruebas de estados; recorrido de navegador con 28 comprobaciones, 9 auditorías axe sin infracciones y sin errores de consola. Se inspeccionaron capturas del nombre en escritorio y a 320 px: nombre completo dentro del ancho visible, sin overflow horizontal. El recorrido incluye nombre animado de escritorio/móvil, carta, mensajes, teclado, tacto, repetición y movimiento reducido. No se reejecutó la matriz completa de 90 estados ni la suite adicional de movimiento; los resultados anteriores permanecen históricos. Sin validación en dispositivo físico o Safari/iOS.
+
+Evidencia nueva: [reporte funcional](output/playwright/esmeralda-flores/functional/report.json), [nombre en escritorio](output/playwright/esmeralda-flores/functional/desktop-name.png), [nombre a 320 px](output/playwright/esmeralda-flores/name-320.png).
+
 ## Variante Karen Estephania — jardín mixto — 21 de septiembre de 2026
 
 Nueva rama local `karen-estephania`, creada desde `v2` (`90db5e6`) conservando los ajustes del jardín que estaban en curso. La rama `v2` mantiene la versión anterior de Anel. No se modificaron remotos.

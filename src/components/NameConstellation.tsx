@@ -90,8 +90,8 @@ export function NameConstellation({ still, paused }: { still: boolean; paused: b
     <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={`Constelación ${content.recipient}`}>
       <defs><linearGradient id="name-gold" x1="0" y1="0" x2="0" y2="1"><stop stopColor="#fff1bf"/><stop offset="1" stopColor="#e4b65e"/></linearGradient></defs>
       <g className="initials" transform={`translate(${width / 2 - 70} 8) scale(.54)`} aria-hidden="true">
-        <path className="initials-line" d="M20 15V90M80 15L20 55L85 90M240 15H170V90H240M170 52H225"/>
-        {[[20,15],[20,90],[20,55],[80,15],[85,90],[170,15],[170,90],[240,90],[240,15],[225,52]].map(([x,y],i)=><circle key={i} className="gathering-star" cx={x} cy={y} r="3"/>)}
+        <path className="initials-line" d="M85 15H20V90H85M20 52H75M170 90V15H240M170 52H225"/>
+        {[[85,15],[20,15],[20,90],[85,90],[20,52],[75,52],[170,90],[170,15],[240,15],[170,52],[225,52]].map(([x,y],i)=><circle key={i} className="gathering-star" cx={x} cy={y} r="3"/>)}
         <path fill="#ffdf92" stroke="none" d="M130 36L134 50L148 54L134 58L130 72L126 58L112 54L126 50Z"/>
       </g>
       <path className="name-connector" d={`M${width / 2} 63C${width / 2 - 20} 100 110 62 90 105`} />

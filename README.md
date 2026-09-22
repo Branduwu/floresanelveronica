@@ -1,6 +1,6 @@
 # Una flor hasta donde estés
 
-Un observatorio botánico interactivo para Karen Estephania, en la rama `karen-estephania`. Tres actos en un mismo cielo: una estrella llega, dibuja una rosa amarilla y da vida a un jardín de tulipanes y girasoles con mensajes y una carta. La versión de Anel se conserva en `v2`.
+Un observatorio botánico interactivo para Esmeralda Flores, en la rama `esmeralda-flores`. Tres actos en un mismo cielo: una estrella llega, dibuja una rosa amarilla y da vida a un jardín de tulipanes y girasoles con mensajes y una carta. Las versiones anteriores se conservan en `v2` (Anel) y `karen-estephania` (Karen).
 
 ## Ejecutar
 
@@ -33,7 +33,7 @@ El nombre dibujado utiliza contornos de la fuente local Cormorant Garamond. Si c
 1. Tocar la estrella o activarla con Enter/Espacio.
 2. Ver nacer la rosa o utilizar «Saltar intro».
 3. Tocar los pétalos para sembrar el jardín.
-4. Explorar los tulipanes y girasoles para descubrir tres frases y la estrella para dibujar K ✦ E → Karen Estephania.
+4. Explorar los tulipanes y girasoles para descubrir tres frases y la estrella para dibujar E ✦ F → Esmeralda Flores.
 5. Abrir la carta desde el sobre; volver con su control de cierre o Escape.
 
 «Pausar» detiene el ambiente y permite avanzar sin las secuencias largas. Se respeta la preferencia del sistema de movimiento reducido. «Repetir» limpia los descubrimientos y vuelve al principio. No hay audio.
@@ -83,7 +83,7 @@ $env:PLAYWRIGHT_CHANNEL = 'msedge'
 npm run test:browser
 ```
 
-Puede indicarse otra URL mediante `TEST_URL`. Para conservar evidencia separada de esta rama, usar `$env:EVIDENCE_DIR = 'output/playwright/karen-estephania'` antes de las pruebas en PowerShell. Si no se indica, la ruta predeterminada sigue siendo `output/playwright/v2/`. Consultar `VERIFICATION.md` para las revisiones visuales y las limitaciones de la medición.
+Puede indicarse otra URL mediante `TEST_URL`. Para conservar evidencia separada de esta rama, usar `$env:EVIDENCE_DIR = 'output/playwright/esmeralda-flores'` antes de las pruebas en PowerShell. Si no se indica, la ruta predeterminada sigue siendo `output/playwright/v2/`. Consultar `VERIFICATION.md` para las revisiones visuales y las limitaciones de la medición.
 
 En pantallas muy bajas u horizontales se permite desplazamiento vertical dentro del mismo escenario para preservar la flor y el texto. No se fuerza una composición comprimida ni se desactiva el zoom.
 
